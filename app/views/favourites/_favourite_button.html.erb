@@ -1,0 +1,15 @@
+<% if current_user.liking?(micropost) %>
+  <%= form_for(current_user.favourites.find_by(user_id: current_user.id, micropost_id: micropost.id), html: { method: :delete }) do |f| %>
+    <%= hidden_field_tag :micropost_id, micropost.id %>
+    <%= button_tag( class: "btn btn-info  btn-xs active") do %>
+      <%= content_tag :span, "解除", class: "glyphicon glyphicon-star" %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= form_for(current_user.favourites.build) do |f| %>
+    <%= hidden_field_tag :micropost_id, micropost.id %>
+    <%= button_tag( class: "btn btn-success btn-xs") do %>
+      <%= content_tag :span, "登録", class: "glyphicon glyphicon-star" %>
+    <% end %>
+  <% end %>
+<% end %>
